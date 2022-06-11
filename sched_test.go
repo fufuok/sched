@@ -5,7 +5,6 @@
 package sched_test
 
 import (
-	"math/rand"
 	"sync/atomic"
 	"testing"
 
@@ -44,9 +43,7 @@ func TestSched(t *testing.T) {
 	}
 	s.Release()
 
-	s = sched.New(sched.Workers(4), sched.Randomizer(func(min, max int) int {
-		return rand.Intn(max)
-	}))
+	s = sched.New(sched.Workers(4), sched.Queues(2))
 	s.Add(10)
 	sum = uint32(0)
 	for i := 0; i < 10; i++ {
